@@ -164,7 +164,7 @@ srv.start();`
     const dynamicExt = activeFile.substring(activeFile.lastIndexOf('.'));
 
     try {
-      const response = await fetch('https://quantum-language.vercel.app/api/execute', {
+      const response = await fetch('https://quantum-language-website-backend.vercel.app/api/execute', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -21,7 +21,7 @@ export const DownloadPage = () => (
 
       <div className="grid md:grid-cols-3 gap-8 mb-16">
         {[
-          { os: "Windows", icon: Globe, version: "v2.0.4", arch: "x64 / ARM64", link: "/downloads/QuantumSetup-v2.0.4-x64.exe", download: "QuantumSetup-v2.0.4-x64.exe", available: true, color: "from-blue-500/20" },
+          { os: "Windows", icon: Globe, version: "v2.0.4", arch: "x64 / ARM64", link: "/downloads/QuantumSetup.exe", download: "QuantumSetup.exe", available: true, color: "from-blue-500/20" },
           { os: "Linux", icon: Terminal, version: "v2.0.4", arch: "x64 / ARM64 / RISC-V", link: "https://github.com/SENODROOM/Quantum-Language/releases", available: false, color: "from-orange-500/20" },
           { os: "macOS", icon: Cpu, version: "v2.0.4", arch: "Apple Silicon / Intel", link: "https://github.com/SENODROOM/Quantum-Language/releases", available: false, color: "from-purple-500/20" }
         ].map((item, i) => (

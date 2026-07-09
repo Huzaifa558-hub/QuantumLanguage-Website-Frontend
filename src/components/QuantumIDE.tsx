@@ -270,6 +270,7 @@ srv.start();`
     setFiles(prev => ({ ...prev, [name]: defaultContent }));
     setActiveFile(name);
     setNewFileName('');
+    setIsCreateModalOpen(false);
   };
 
   const deleteFile = (fileName: string) => {

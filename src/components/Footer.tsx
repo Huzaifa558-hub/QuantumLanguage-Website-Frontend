@@ -1,9 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Github as GithubIcon, Globe, Terminal } from 'lucide-react';
 
-export const Footer = () => (
-  <footer className="py-24 bg-white dark:bg-black border-t border-black/5 dark:border-white/5 transition-colors duration-300 overflow-hidden relative">
+export const Footer = () => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    if (pathname !== '/') {
+      e.preventDefault();
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <footer className="py-24 bg-white dark:bg-black border-t border-black/5 dark:border-white/5 transition-colors duration-300 overflow-hidden relative">
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
     
     <div className="max-w-7xl mx-auto px-6">
@@ -39,7 +57,7 @@ export const Footer = () => (
         <div>
           <h4 className="font-bold text-sm uppercase tracking-widest mb-6">Ecosystem</h4>
           <ul className="space-y-4 text-sm text-black/40 dark:text-white/40">
-            <li><a href="#blog" className="hover:text-cyan-500 transition-colors">Blog</a></li>
+            <li><a href="#blog" onClick={(e) => handleNavClick(e, 'blog')} className="hover:text-cyan-500 transition-colors">Blog</a></li>
             <li><a href="#roadmap" className="hover:text-cyan-500 transition-colors">Roadmap</a></li>
             <li><a href="#faq" className="hover:text-cyan-500 transition-colors">FAQ</a></li>
             <li><a href="https://github.com/SENODROOM/Quantum-Language" className="hover:text-cyan-500 transition-colors">GitHub</a></li>
@@ -67,4 +85,5 @@ export const Footer = () => (
       </div>
     </div>
   </footer>
-);
+  );
+};

@@ -1,9 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Github as GithubIcon, Globe, Terminal } from 'lucide-react';
 
-export const Footer = () => (
-  <footer className="py-24 bg-white dark:bg-black border-t border-black/5 dark:border-white/5 transition-colors duration-300 overflow-hidden relative">
+export const Footer = () => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    e.preventDefault();
+    if (pathname === '/') {
+      const el = document.getElementById(target);
+      if (el) {
+        const navbarHeight = 64;
+        const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    } else {
+      navigate(`/#${target}`);
+    }
+  };
+
+  return (
+    <footer className="py-24 bg-white dark:bg-black border-t border-black/5 dark:border-white/5 transition-colors duration-300 overflow-hidden relative">
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
     
     <div className="max-w-7xl mx-auto px-6">
@@ -17,31 +35,41 @@ export const Footer = () => (
               A modern, multi-syntax scripting language built for performance and flexibility. 
               Developed by <span className="text-cyan-500 font-bold">SENODROOM</span>.
             </p>
-            <div className="flex gap-4">
-            {[GithubIcon, Globe, Terminal].map((Icon, i) => (
-              <a key={i} href="#" className="p-2 bg-black/5 dark:bg-white/5 rounded-lg hover:bg-cyan-500/10 hover:text-cyan-500 transition-all">
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
+           <div className="flex gap-4">
+  {[
+    { Icon: GithubIcon, path: "https://github.com/QuantumLogicsLabs/QuantumLanguage.git", isExternal: true },
+    { Icon: Globe, path: "https://discord.gg/HvgzP4pBJ", isExternal: true },
+    { Icon: Terminal, path: "#ide", isExternal: false }
+  ].map(({ Icon, path, isExternal }, i) => (
+    <a 
+      key={i} 
+      href={path} 
+      target={isExternal ? "_blank" : undefined} 
+      rel={isExternal ? "noopener noreferrer" : undefined} 
+      className="p-2 bg-black/5 dark:bg-white/5 rounded-lg hover:bg-cyan-500/10 hover:text-cyan-500 transition-all"
+    >
+      <Icon className="w-5 h-5" />
+    </a>
+  ))}
+</div>
         </div>
         
         <div>
           <h4 className="font-bold text-sm uppercase tracking-widest mb-6">Language</h4>
           <ul className="space-y-4 text-sm text-black/40 dark:text-white/40">
-            <li><a href="#features" className="hover:text-cyan-500 transition-colors">Features</a></li>
-            <li><a href="#syntax" className="hover:text-cyan-500 transition-colors">Syntax</a></li>
-            <li><a href="#ide" className="hover:text-cyan-500 transition-colors">IDE</a></li>
-            <li><a href="/download" className="hover:text-cyan-500 transition-colors">Download</a></li>
+            <li><a href="#features" onClick={(e) => handleNavClick(e, 'features')} className="hover:text-cyan-500 transition-colors">Features</a></li>
+            <li><a href="#syntax" onClick={(e) => handleNavClick(e, 'syntax')} className="hover:text-cyan-500 transition-colors">Syntax</a></li>
+            <li><a href="#ide" onClick={(e) => handleNavClick(e, 'ide')} className="hover:text-cyan-500 transition-colors">IDE</a></li>
+            <li><Link to="/download" className="hover:text-cyan-500 transition-colors">Download</Link></li>
           </ul>
         </div>
         
         <div>
           <h4 className="font-bold text-sm uppercase tracking-widest mb-6">Ecosystem</h4>
           <ul className="space-y-4 text-sm text-black/40 dark:text-white/40">
-            <li><a href="#blog" className="hover:text-cyan-500 transition-colors">Blog</a></li>
-            <li><a href="#roadmap" className="hover:text-cyan-500 transition-colors">Roadmap</a></li>
-            <li><a href="#faq" className="hover:text-cyan-500 transition-colors">FAQ</a></li>
+            <li><a href="#blog" onClick={(e) => handleNavClick(e, 'blog')} className="hover:text-cyan-500 transition-colors">Blog</a></li>
+            <li><a href="#roadmap" onClick={(e) => handleNavClick(e, 'roadmap')} className="hover:text-cyan-500 transition-colors">Roadmap</a></li>
+            <li><a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="hover:text-cyan-500 transition-colors">FAQ</a></li>
             <li><a href="https://github.com/SENODROOM/Quantum-Language" className="hover:text-cyan-500 transition-colors">GitHub</a></li>
           </ul>
         </div>
@@ -67,4 +95,5 @@ export const Footer = () => (
       </div>
     </div>
   </footer>
-);
+  );
+};

@@ -92,7 +92,7 @@ const QuantumTerminal =  forwardRef<QuantumTerminalHandle, QuantumTerminalProps>
   useEffect(() => {
     filesRef.current = files;
   }, [files]);
-
+ 
   useImperativeHandle(ref, () => ({
     runFile: (file: string) => {
       executeCodeRef.current(`qrun ${file}`)
@@ -299,7 +299,8 @@ const QuantumTerminal =  forwardRef<QuantumTerminalHandle, QuantumTerminalProps>
       }
 
       // Execute via socket (connects automatically if needed)
-      socketManager.runScript(code);
+      const ext = filePath.slice(filePath.lastIndexOf('.'));
+      socketManager.runScript(code, ext);
     };
 
     // Setup output streaming from socket manager

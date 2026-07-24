@@ -2,8 +2,8 @@ name: Daily Automated AI Blog Generator
 
 on:
   schedule:
-    # Runs at 16:15 PKT (11:15 UTC) every day
-    - cron: '15 11 * * *'
+    # Runs at 20:00 PKT (15:00 UTC) every day
+    - cron: '0 15 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 jobs:

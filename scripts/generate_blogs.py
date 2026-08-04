@@ -115,8 +115,8 @@ def download_ai_cover_image(prompt_text, filename):
 
     style_modifiers = "futuristic quantum tech banner, 3d render, octane render, glowing cyan and violet neon accents, glassmorphism, dynamic lighting, 8k resolution, cinematic composition, photorealistic dark mode background, 16:9 aspect ratio, no text, no letters"
     full_prompt = f"{prompt_text}, {style_modifiers}"
-    encoded_prompt = urllib.parse.quote(full_prompt)
-    url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1280&height=720&nologo=true&enhance=true&seed=42"
+    seed = int(time.time())
+    url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1280&height=720&nologo=true&enhance=true&seed={seed}"
 
     print(f"  📷 Generating AI cover image: {filename}...")
     
